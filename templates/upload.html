@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="upload-shell">
+    <div class="card upload-minimal-card reveal-on-scroll revealed">
+        <h2>Upload Document</h2>
+        <p class="subtitle">Upload PDF or Image</p>
+
+        {% if error %}
+        <div class="alert">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data" id="uploadForm">
+            <div id="dropZone" class="drop-zone">
+                <input
+                    type="file"
+                    id="fileInput"
+                    name="file"
+                    accept=".pdf,.png,.jpg,.jpeg,.bmp,.tiff,.webp"
+                    required
+                />
+                <div class="drop-zone-copy">
+                    <h3>Drop file here</h3>
+                    <p>or click to browse</p>
+                </div>
+            </div>
+            <div id="fileMeta" class="file-meta hidden"></div>
+            <div class="actions">
+                <button type="submit" class="btn btn-primary">Upload &amp; Continue</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script>
+  (function () {
+    const fileInput = document.getElementById("fileInput");
+    const fileMeta = document.getElementById("fileMeta");
+    const dropZone = document.getElementById("dropZone");
+
+    const formatSize = (size) => {
+      if (typeof size !== "number") return "";
+      if (size < 1024) return `${size} B`;
+      if (size < 1024 * 1024) return `${(size / 1024).toFixed(2)} KB`;
+      return `${(size / (1024 * 1024)).toFixed(2)} MB`;
+    };
+
+    const renderMeta = (file) => {
+      if (!file || !fileMeta) return;
+      fileMeta.classList.remove("hidden");
+      fileMeta.innerHTML = `<strong title="${file.name}">${file.name}</strong><span>${formatSize(file.size)}</span>`;
+    };
+
+    fileInput?.addEventListener("change", (e) => {
+      const file = e.target?.files?.[0];
+      renderMeta(file);
+    });
+
+    dropZone?.addEventListener("drop", (e) => {
+      const file = e.dataTransfer?.files?.[0];
+      renderMeta(file);
+    });
+  })();
+</script>
+{% endblock %}

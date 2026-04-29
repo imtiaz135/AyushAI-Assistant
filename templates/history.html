@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="dashboard-shell">
+  <div class="card">
+    <h2>Upload History</h2>
+    <p class="subtitle">Your saved uploads and results</p>
+  </div>
+
+  <div class="dashboard-grid">
+    <article class="card">
+      <h3>All uploads</h3>
+      {% if uploads and uploads|length > 0 %}
+      <ul class="issues-list">
+        {% for u in uploads %}
+        <li>
+          <strong>{{ u.filename }}</strong><br />
+          <span class="subtitle">Date: {{ u.timestamp }}</span><br />
+          <span class="subtitle">
+            Result:
+            {% if u.score is not none %}
+              Score {{ u.score }}% ({{ u.quality }}) / {{ u.ml_label }}
+            {% else %}
+              Pending analysis
+            {% endif %}
+          </span>
+          <br />
+          <a href="{{ u.file_url }}" target="_blank" rel="noopener">Open file</a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="subtitle">No uploads found.</p>
+      {% endif %}
+    </article>
+  </div>
+  <div class="actions">
+    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Back to dashboard</a>
+  </div>
+</section>
+{% endblock %}
+

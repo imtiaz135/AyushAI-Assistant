@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="landing-shell">
+    <div class="landing-bg landing-bg-one"></div>
+    <div class="landing-bg landing-bg-two"></div>
+
+    <div class="landing-hero">
+        <h1>Ayush AI Assistant</h1>
+        <p class="landing-subheading">
+            AI-powered Textbook Authenticity Analyzer using OCR, NLP &amp; Machine Learning
+        </p>
+        <p class="landing-description">
+            Upload textbook content and detect authenticity, errors, and inconsistencies using
+            intelligent AI.
+        </p>
+
+        <div class="landing-actions">
+            <a href="{{ url_for('upload') }}" class="btn btn-primary">Start Analysis</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

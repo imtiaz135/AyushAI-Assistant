@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ayush AI Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css', v='20260428h') }}" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="brand">Ayush AI Assistant</div>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('upload') }}">Upload</a>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('chatbot') }}">Chatbot</a>
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% if request.path != '/chatbot' %}
+    <button
+        id="floatingChatBtn"
+        class="floating-chat-btn"
+        type="button"
+        aria-label="Open Ayush AI chat"
+        onclick="document.getElementById('floatingChatWidget')?.classList.remove('hidden')"
+    >
+        <span>💬</span>
+    </button>
+
+    <section id="floatingChatWidget" class="floating-chat-widget hidden" aria-live="polite">
+        <header class="floating-chat-header">
+            <div>
+                <h3>Ayush AI</h3>
+            </div>
+            <button
+                type="button"
+                id="floatingChatClose"
+                class="floating-icon-btn"
+                aria-label="Close chat"
+                onclick="event.stopPropagation(); document.getElementById('floatingChatWidget')?.classList.add('hidden');"
+            >
+                ×
+            </button>
+        </header>
+        <div id="floatingChatMessages" class="floating-chat-messages">
+            <div class="floating-message ai">
+                <div class="floating-bubble">Hi! How can I help you?</div>
+            </div>
+        </div>
+        <footer class="floating-chat-footer">
+            <form id="floatingChatForm" class="floating-chat-input-wrap">
+                <input
+                    id="floatingChatInput"
+                    type="text"
+                    maxlength="600"
+                    placeholder="Type your message..."
+                    autocomplete="off"
+                    required
+                />
+                <button type="submit" class="floating-send-btn" aria-label="Send message">➤</button>
+            </form>
+        </footer>
+    </section>
+    {% endif %}
+
+    <script src="{{ url_for('static', filename='script.js', v='20260429b') }}"></script>
+</body>
+</html>

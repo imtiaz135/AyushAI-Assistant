@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="dashboard-shell">
+  <div class="card">
+    <h2>Dashboard</h2>
+    <p class="subtitle">
+      Username: <strong>{{ username }}</strong> | Email: <strong>{{ email }}</strong>
+    </p>
+    <p class="subtitle">Total uploads: <strong>{{ total_uploads }}</strong></p>
+  </div>
+
+  <div class="dashboard-grid">
+    <article class="card">
+      <h3>Last 3 uploads</h3>
+      {% if last_uploads and last_uploads|length > 0 %}
+      <ul class="issues-list">
+        {% for u in last_uploads %}
+        <li>
+          <strong>{{ u.filename }}</strong><br />
+          <span class="subtitle">Date: {{ u.timestamp }}</span><br />
+          <span class="subtitle">
+            Result:
+            {% if u.score is not none %}
+              Score {{ u.score }}% ({{ u.quality }})
+            {% else %}
+              Pending analysis
+            {% endif %}
+          </span><br />
+          <a href="{{ u.file_url }}" target="_blank" rel="noopener">Open file</a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="subtitle">No uploads yet.</p>
+      {% endif %}
+    </article>
+  </div>
+
+  <div class="actions">
+    <a href="{{ url_for('upload') }}" class="btn btn-primary">Upload file</a>
+    <a href="{{ url_for('history') }}" class="btn btn-secondary">View history</a>
+    <a href="{{ url_for('chatbot') }}" class="btn btn-secondary">Open chatbot</a>
+  </div>
+</section>
+{% endblock %}
+

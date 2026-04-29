@@ -1,0 +1,12 @@
+flask
+flask-login
+pytesseract
+pillow
+pandas
+scikit-learn
+Werkzeug
+PyMuPDF
+pdf2image
+pypdf
+cloudinary
+google-genai

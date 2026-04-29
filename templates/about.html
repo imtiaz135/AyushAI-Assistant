@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="about-page-shell">
+    <div class="card about-page-header">
+        <h2>About AYUSH AI Assistant</h2>
+        <p class="subtitle">Traditional medicine knowledge, verified with intelligent AI analysis.</p>
+        <div class="actions">
+            <a href="{{ url_for('home') }}" class="btn btn-primary">Home</a>
+        </div>
+    </div>
+
+    <section class="about-ayush-section revealed">
+        <div class="about-ayush-grid">
+            <article class="card about-ayush-content revealed">
+                <h2>About AYUSH AI Assistant</h2>
+                <p>
+                    AYUSH represents the traditional systems of medicine in India, including Ayurveda,
+                    Yoga &amp; Naturopathy, Unani, Siddha, and Homeopathy. These systems focus on holistic
+                    health and natural healing and play a vital role in India’s healthcare ecosystem.
+                </p>
+                <p>
+                    Ayush AI Assistant is designed to ensure the authenticity and quality of educational
+                    content related to AYUSH. By leveraging Optical Character Recognition (OCR), Natural
+                    Language Processing (NLP), and intelligent analysis, the system detects inconsistencies,
+                    errors, and misleading information in textbooks and documents.
+                </p>
+                <div class="purpose-card">
+                    <h3>Why This Platform?</h3>
+                    <ul>
+                        <li>Prevent misinformation in AYUSH education</li>
+                        <li>Ensure accuracy of medical knowledge</li>
+                        <li>Support students and educators</li>
+                        <li>Improve quality of reference materials</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="card about-ayush-visual revealed">
+                <div class="ayush-art">
+                    <div class="ayush-leaf">🌿</div>
+                    <div class="ayush-core">
+                        <span>AI</span>
+                    </div>
+                    <div class="ayush-medical">+</div>
+                </div>
+                <p class="subtitle">A focused platform where AYUSH knowledge meets modern AI trust.</p>
+            </article>
+        </div>
+    </section>
+</section>
+{% endblock %}

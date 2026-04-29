@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="upload-shell">
+  <div class="card upload-minimal-card reveal-on-scroll revealed">
+    <h2>Sign Up</h2>
+    <p class="subtitle">Create an account to save your analysis history</p>
+
+    {% if error %}
+    <div class="alert">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+      <label class="subtitle" for="username">Username</label>
+      <input id="username" name="username" type="text" minlength="3" required />
+
+      <label class="subtitle" for="email">Email</label>
+      <input id="email" name="email" type="email" required />
+
+      <label class="subtitle" for="password">Password</label>
+      <input id="password" name="password" type="password" minlength="8" required />
+
+      <label class="subtitle" for="confirm_password">Confirm Password</label>
+      <input
+        id="confirm_password"
+        name="confirm_password"
+        type="password"
+        minlength="8"
+        required
+      />
+
+      <div class="actions">
+        <button type="submit" class="btn btn-primary">Create Account</button>
+        <a class="btn btn-secondary" href="{{ url_for('login') }}">Back to Login</a>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}
+

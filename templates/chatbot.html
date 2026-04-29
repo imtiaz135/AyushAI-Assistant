@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="chat-shell">
+    <aside class="chat-sidebar card">
+        <h3>Ayush AI</h3>
+        <button class="btn btn-primary" type="button" id="newChatBtn">+ New Chat</button>
+        <div class="chat-history">
+            <p class="subtitle">Today</p>
+            <button type="button" class="history-item">Authenticity check notes</button>
+            <button type="button" class="history-item">Textbook error summary</button>
+            <button type="button" class="history-item">NLP explanation</button>
+        </div>
+        <div class="chat-user-profile">
+            <span>IM</span>
+            <p>Project User</p>
+        </div>
+    </aside>
+
+    <div class="chat-main card">
+        <div id="chatMessages" class="chat-messages">
+            <div class="message ai">
+                <div class="message-body">
+                    Ask me anything. I will explain in simple words.
+                </div>
+            </div>
+            {% if user_input %}
+            <div class="message user">
+                <div class="message-body">{{ user_input }}</div>
+            </div>
+            {% endif %}
+            {% if response %}
+            <div class="message ai">
+                <div class="message-body" id="streamingResponse" data-response="{{ response }}">
+                    <span class="typing">Ayush AI is thinking...</span>
+                </div>
+                <div class="message-actions">
+                    <button type="button" class="mini-btn copy-btn">Copy</button>
+                    <button type="button" class="mini-btn" id="regenBtn">Regenerate</button>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <form method="POST" class="chat-input-wrap" id="chatForm">
+            <textarea
+                name="query"
+                id="chatInput"
+                placeholder="Message Ayush AI..."
+                required
+            >{{ user_input }}</textarea>
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

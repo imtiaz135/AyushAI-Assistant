@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="review-shell reveal-on-scroll">
+    <div class="card">
+        <h2>Review Your Document</h2>
+        <p class="subtitle">
+            File: <strong>{{ uploaded_name }}</strong> ({{ uploaded_size_kb }} KB)
+        </p>
+    </div>
+
+    <section class="card review-section">
+        <div class="review-head">
+            <h3>PDF Viewer</h3>
+            <div class="review-tools">
+                <button type="button" class="btn" id="zoomOutBtn">-</button>
+                <span id="zoomValue">100%</span>
+                <button type="button" class="btn" id="zoomInBtn">+</button>
+                <button type="button" class="btn" id="prevPageBtn">Prev</button>
+                <button type="button" class="btn" id="nextPageBtn">Next</button>
+                <span id="pageIndicator">Page 1 / 1</span>
+            </div>
+        </div>
+
+        <div class="pdf-review-grid">
+            <aside id="thumbSidebar" class="thumb-sidebar hidden"></aside>
+            <div class="viewer-wrap">
+                <div id="viewerStage" class="viewer-stage">
+                    <canvas id="pdfCanvas"></canvas>
+                    <img id="imagePreview" class="hidden" alt="Preview" />
+                    <div id="selectionBox" class="selection-box hidden"></div>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" id="analyzeScope" value="full_document" />
+        <input type="hidden" id="selectedRegion" value="" />
+        <input type="hidden" id="currentPage" value="1" />
+        <input type="hidden" id="reviewFileUrl" value="{{ file_url }}" />
+        <input type="hidden" id="reviewIsPdf" value="{{ '1' if is_pdf else '0' }}" />
+
+        <div class="selection-actions">
+            <button type="button" class="btn btn-primary" data-scope="full_document">Analyze Full Document</button>
+            <button type="button" class="btn" data-scope="current_page">Analyze Current Page</button>
+            <button type="button" class="btn btn-secondary" data-scope="selected_area">Analyze Selected Area</button>
+            <button type="button" class="btn" id="clearSelectionBtn">Clear Selection</button>
+        </div>
+
+        <div id="loaderOverlay" class="review-loader-overlay hidden">
+            <div class="review-loader-card">
+                <p id="loaderLog">Extracting text using OCR...</p>
+                <div class="loader-progress">
+                    <div id="loaderProgressBar" class="loader-progress-bar"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</section>
+{% endblock %}
