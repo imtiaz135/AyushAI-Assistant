@@ -336,8 +336,8 @@ def signup():
     try:
         with _get_db_connection() as conn:
             existing = conn.execute(
-                "SELECT id FROM users WHERE username=? OR email=?",
-                (username, email),
+                "SELECT id FROM users WHERE LOWER(username)=? OR email=?",
+                (username.lower(), email),
             ).fetchone()
             if existing:
                 return render_template("signup.html", error="Username or email already exists.")
@@ -367,7 +367,7 @@ def login():
 
     with _get_db_connection() as conn:
         user_row = conn.execute(
-            "SELECT id, username, email, password_hash FROM users WHERE username=? OR email=?",
+            "SELECT id, username, email, password_hash FROM users WHERE LOWER(username)=? OR email=?",
             (username_or_email, username_or_email),
         ).fetchone()
     if not user_row or not check_password_hash(user_row["password_hash"], password):
@@ -468,6 +468,51 @@ def history():
 @app.route("/about")
 def about():
     return render_template("about.html")
+
+def _get_updates_data():
+    return [
+        {
+            "title": "Yoga Improves Mental Health",
+            "summary": "Studies show yoga reduces stress and improves focus.",
+            "content": "Recent clinical reviews show regular yoga practice is linked to lower anxiety, enhanced mood, and improved concentration. These practices also support emotional balance and cognitive clarity.",
+            "tag": "Yoga",
+            "date": "April 2026",
+        },
+        {
+            "title": "Herbal Immunity Support in AYUSH",
+            "summary": "Recent research highlights turmeric and ashwagandha for immune resilience.",
+            "content": "New AYUSH research emphasizes the potential of turmeric and ashwagandha in strengthening immune response. The study also explores optimal dosages for daily wellness support.",
+            "tag": "Herbal",
+            "date": "April 2026",
+        },
+        {
+            "title": "Mindful Breathing for Cognitive Clarity",
+            "summary": "Ayurveda-based breathing exercises are linked to better concentration.",
+            "content": "A recent trial shows pranayama routines improve focus and reduce mental fatigue. Participants reported clearer thinking and better task performance after daily breathing exercises.",
+            "tag": "Pranayama",
+            "date": "March 2026",
+        },
+    ]
+
+@app.route("/updates")
+def updates():
+    return render_template("updates.html")
+
+@app.route("/api/updates")
+def api_updates():
+    return jsonify(_get_updates_data())
+
+@app.route("/update/<title>")
+def update_detail(title):
+    updates_data = _get_updates_data()
+    selected_update = next((item for item in updates_data if item["title"] == title), None)
+    if selected_update is None:
+        return render_template("update_detail.html", title="Update not found", content="The requested research update could not be found.")
+    return render_template(
+        "update_detail.html",
+        title=selected_update["title"],
+        content=selected_update["content"],
+    )
 
 @app.route("/upload", methods=["GET", "POST"])
 @login_required

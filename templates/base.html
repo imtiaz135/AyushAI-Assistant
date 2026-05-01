@@ -13,6 +13,7 @@
             <a href="{{ url_for('home') }}">Home</a>
             <a href="{{ url_for('upload') }}">Upload</a>
             <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('updates') }}">Research Updates</a>
             <a href="{{ url_for('chatbot') }}">Chatbot</a>
             {% if current_user.is_authenticated %}
             <a href="{{ url_for('dashboard') }}">Dashboard</a>

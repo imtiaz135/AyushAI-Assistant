@@ -22,6 +22,7 @@ The application features secure user authentication, cloud-based file storage, a
 - 🔐 **User Authentication** – Secure login and signup system
 - 📊 **Dashboard** – View analytics, recent uploads, and authenticity scores at a glance
 - 📜 **History Tracking** – Keep records of all past uploads and analyses
+- 📚 **Research Updates** – Browse latest AYUSH research, yoga, and herbal studies with clickable detail pages
 - ☁️ **Cloud Storage** – Secure file storage with Cloudinary integration
 - 🎨 **Responsive Modern UI** – Clean, minimal Ayurveda-inspired design with intuitive navigation
 - 🌐 **Mobile-Friendly** – Works seamlessly across all devices
@@ -164,7 +165,25 @@ TESSERACT_PATH=/usr/bin/tesseract
 
 ---
 
-## 📊 How It Works
+## � Research Updates Feature
+
+A new **Research Updates** section provides access to curated AYUSH research articles:
+
+- **Browse Articles** – Visit `/updates` to explore the latest research
+- **Detailed Views** – Click any article to view full content at `/update/<title>`
+- **Responsive Design** – Cards adapt to screen size with smooth interactions
+- **AYUSH-Focused Content** – Articles on Yoga, Herbal medicine, Pranayama, and more
+- **Navigation** – Easily navigate between research articles and main app
+
+### Using Research Updates
+1. Navigate to the **"Research Updates"** link in the main menu
+2. Browse available research cards
+3. Click any card to view detailed article content
+4. Use the back button to return to the research list
+
+---
+
+## �📊 How It Works
 
 ### Document Analysis Flow
 
@@ -195,33 +214,37 @@ Users can ask questions about their documents or any topic using the Gemini-powe
 
 ```
 ayush-ai/
-├── app.py                  # Main Flask application
-├── analyzer.py            # Document analysis logic
-├── chatbot.py             # Gemini chatbot integration
-├── dataset.py             # Data models
-├── merge_json_to_csv.py   # Data processing utility
-├── requirements.txt       # Python dependencies
-├── .env.example           # Environment variables template
+├── app.py                    # Main Flask application with all routes
+├── analyzer.py              # Document analysis logic
+├── chatbot.py               # Gemini chatbot integration
+├── dataset.py               # Data models
+├── merge_json_to_csv.py     # Data processing utility
+├── generate_report.py       # PDF report generator
+├── requirements.txt         # Python dependencies
+├── .env.example             # Environment variables template
 ├── static/
-│   ├── style.css          # Main stylesheet (Ayurveda-inspired design)
-│   └── script.js          # Frontend JavaScript
+│   ├── style.css            # Main stylesheet (Ayurveda-inspired design)
+│   └── script.js            # Frontend JavaScript
 ├── templates/
-│   ├── base.html          # Base template
-│   ├── home.html          # Landing page
-│   ├── upload.html        # Document upload page
-│   ├── dashboard.html     # User dashboard
-│   ├── result.html        # Analysis results page
-│   ├── history.html       # Upload history
-│   ├── review.html        # Document review
-│   ├── chatbot.html       # Chatbot interface
-│   ├── about.html         # About page
-│   ├── login.html         # Login page
-│   └── signup.html        # Registration page
-├── uploads/               # Temporary uploaded files
+│   ├── base.html            # Base template with navbar
+│   ├── home.html            # Landing page
+│   ├── upload.html          # Document upload page
+│   ├── dashboard.html       # User dashboard
+│   ├── result.html          # Analysis results page
+│   ├── history.html         # Upload history
+│   ├── review.html          # Document review
+│   ├── chatbot.html         # Chatbot interface
+│   ├── updates.html         # Research updates list
+│   ├── update_detail.html   # Research article detail
+│   ├── about.html           # About page
+│   ├── login.html           # Login page
+│   └── signup.html          # Registration page
+├── uploads/                 # Temporary uploaded files
 ├── project/
-│   ├── ayush_dataset.json # Sample dataset
-│   └── dataset.csv        # Dataset CSV
-└── README.md              # This file
+│   ├── ayush_dataset.json   # Sample dataset
+│   └── dataset.csv          # Dataset CSV
+├── AYUSH_AI_Project_Report.pdf  # Generated project report
+└── README.md                # This file
 ```
 
 ---
@@ -259,6 +282,28 @@ ayush-ai/
 
 ---
 
+## 📄 Generating Project Report
+
+A comprehensive project report in PDF format can be generated automatically:
+
+```bash
+python generate_report.py
+```
+
+This creates `AYUSH_AI_Project_Report.pdf` containing:
+- Executive summary
+- Project overview and objectives
+- Complete feature list
+- Technology stack details
+- Development accomplishments
+- Project structure documentation
+- Analysis workflow explanation
+- Future enhancement roadmap
+- Technical highlights
+- Installation instructions
+
+---
+
 ## 📸 Screenshots
 
 > Insert screenshots here showing:
@@ -268,7 +313,27 @@ ayush-ai/
 > - Analysis results with AI insights
 > - Chatbot conversation interface
 > - User history page
+> - Research updates section
 > - Mobile-responsive views
+
+---
+
+## 🎉 Recent Updates (April 2026)
+
+### Latest Features Added
+- ✨ **Ayurveda-Inspired UI Redesign** – Complete frontend redesign with calming color palette and glassmorphism effects
+- 📚 **Research Updates Section** – New curated research page with clickable article cards and detail pages
+- 🔗 **Interactive Research Cards** – Click any research card to view full article details
+- 📄 **Project Report Generator** – Automated PDF report generation with comprehensive documentation
+- 🎨 **Enhanced Styling** – Improved responsive design for better mobile experience
+- 📊 **Better Navigation** – Streamlined navigation menu with new Research Updates link
+
+### Improvements Made
+- Removed verification badges for cleaner UI
+- Added detailed article pages with back navigation
+- Enhanced card interactivity
+- Improved accessibility across all pages
+- Better error handling and user feedback
 
 ---
 

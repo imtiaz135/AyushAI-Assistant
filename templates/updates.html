@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card">
+    <h1>Latest AYUSH Research &amp; Updates</h1>
+    <p>Stay informed with the newest Ayurvedic and Yoga research highlights curated for the AYUSH community.</p>
+</section>
+
+<section id="updatesList" class="grid-two"></section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const container = document.getElementById("updatesList");
+        if (!container) {
+            return;
+        }
+
+        fetch("/api/updates")
+            .then((response) => response.json())
+            .then((data) => {
+                if (!Array.isArray(data) || data.length === 0) {
+                    container.innerHTML = '<div class="card"><p>No research updates are available right now.</p></div>';
+                    return;
+                }
+
+                container.innerHTML = data
+                    .map((item) => {
+                        return `
+                            <article class="card" onclick="window.location.href='/update/${encodeURIComponent(
+                                item.title
+                            )}'" style="cursor: pointer;">
+                                <h2>${item.title}</h2>
+                                <p>${item.summary}</p>
+                                <div class="update-meta">
+                                    <span>${item.tag}</span>
+                                    <span>${item.date}</span>
+                                </div>
+                            </article>
+                        `;
+                    })
+                    .join("");
+            })
+            .catch(() => {
+                container.innerHTML = '<div class="card"><p>Unable to load research updates. Please try again later.</p></div>';
+            });
+    });
+</script>
+
+<style>
+    #updatesList {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1rem;
+    }
+
+    .update-meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.5rem;
+        margin-top: 0.85rem;
+        font-size: 0.95rem;
+        color: #6f7d3c;
+        font-weight: 600;
+    }
+
+</style>
+{% endblock %}
